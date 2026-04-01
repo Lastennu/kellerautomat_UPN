@@ -1,9 +1,11 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c11 -g
-TARGET = kellerautomat
+SRC_DIR = src
+BIN_DIR = bin
+TARGET = $(BIN_DIR)/kellerautomat
 
-SRC = kellerautomat.c stack.c
-OBJ = $(SRC:.c=.o)
+SRC = $(SRC_DIR)/kellerautomat.c $(SRC_DIR)/stack.c
+OBJ = $(patsubst $(SRC_DIR)/%.c,$(BIN_DIR)/%.o,$(SRC))
 
 .PHONY: all clean
 
@@ -12,8 +14,20 @@ all: $(TARGET)
 $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $(OBJ)
 
-%.o: %.c stack.h
+
+$(BIN_DIR)/%.o: $(SRC_DIR)/%.c $(SRC_DIR)/stack.h | $(BIN_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
 
 clean:
 	rm -f $(OBJ) $(TARGET)
+
+.PHONY: test
+
+test: $(BIN_DIR)/kellerautomat_tests
+	./$(BIN_DIR)/kellerautomat_tests
+
+$(BIN_DIR)/kellerautomat_tests: test/test_kellerautomat.c $(SRC_DIR)/kellerautomat.c $(SRC_DIR)/stack.c | $(BIN_DIR)
+	$(CC) $(CFLAGS) -DKELLERAUTOMAT_NO_MAIN $^ -o $@
