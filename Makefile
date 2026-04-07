@@ -4,7 +4,7 @@ SRC_DIR = src
 BIN_DIR = bin
 TARGET = $(BIN_DIR)/kellerautomat
 
-SRC = $(SRC_DIR)/kellerautomat.c $(SRC_DIR)/intstack.c
+SRC = $(SRC_DIR)/kellerautomat.c $(SRC_DIR)/intstack.c $(SRC_DIR)/stackparser.c
 OBJ = $(patsubst $(SRC_DIR)/%.c,$(BIN_DIR)/%.o,$(SRC))
 
 .PHONY: all clean

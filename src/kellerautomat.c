@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <ctype.h>
 #include "stackparser.h"
+#include "stack.h"
 
 #define STATE_ZERO 0
 #define STATE_ONE 1

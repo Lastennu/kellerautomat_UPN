@@ -1,3 +1,5 @@
+#include "stackparser.h"
+
 void pushparse(Stack *stack, int value) {
     push(stack, NUMBER_SPACER);
     while(value > 0) {
