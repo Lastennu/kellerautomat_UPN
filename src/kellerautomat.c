@@ -2,7 +2,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <ctype.h>
-#include "stack.h"
+#include "linkedstack.h"
 
 #define STATE_ZERO 0
 #define STATE_ONE 1
@@ -14,7 +14,7 @@
 
 int tempNumber;
 
-int stateZero(Stack *stack, char symbol) {
+int stateZero(LinkedStack *stack, char symbol) {
     if (pop(stack) == $) {
         if (symbol >= '0' && symbol <= '9') {
             push(stack, $);
@@ -25,7 +25,7 @@ int stateZero(Stack *stack, char symbol) {
     return INVALID_STATE;
 }
 
-int stateOne(Stack *stack, char symbol) {
+int stateOne(LinkedStack *stack, char symbol) {
     if (pop(stack) == $) {
         if (symbol >= '0' && symbol <= '9') {
             push(stack, $);
@@ -37,7 +37,7 @@ int stateOne(Stack *stack, char symbol) {
     return INVALID_STATE;
 }
 
-int stateTwo(Stack *stack, char symbol) {
+int stateTwo(LinkedStack *stack, char symbol) {
     int top = pop(stack);
     if (top == $) {
         push(stack, $);
@@ -61,7 +61,7 @@ int stateTwo(Stack *stack, char symbol) {
 }
 
 int kellerautomat(char stepMode, char *word) {
-    Stack stack;
+    LinkedStack stack;
     initialize(&stack);
 
     int currentState = STATE_ZERO;
@@ -89,14 +89,10 @@ int kellerautomat(char stepMode, char *word) {
             printf("Verwerfend\n");
             return RETURN_DECLINED;
         }
-        if (stepMode) {
-            printf("Current stack: ");
-            for (int i = 0; i <= stack.top; i++) {
-                printf("%d, ", stack.arr[i]);
-            }
-            printf("\n");
-            sleep(1);
-        }
+       if (stepMode) {
+           printStack(&stack);
+           sleep(1);
+       }
     }
     if (currentState == STATE_TWO) {
         currentState = stateTwo(&stack, '0');
