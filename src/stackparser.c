@@ -1,5 +1,3 @@
-#include "stack.h"
-
 void pushparse(Stack *stack, int value) {
     push(stack, NUMBER_SPACER);
     while(value > 0) {
@@ -11,12 +9,13 @@ void pushparse(Stack *stack, int value) {
 
 int popparse(Stack *stack) {
     if (isEmpty(stack)) {
-        return -1; // stack underflow
+        return -1;
     }
     int result = 0;
-    int poppedelement = 0;
-    while(poppedelement = pop(stack) != NUMBER_SPACER) {
-        result += poppedelement *= BASE;
+    int poppedelement;
+
+    while((poppedelement = pop(stack)) != NUMBER_SPACER && poppedelement != -1) {
+        result = result * BASE + poppedelement;
     }
     return result;
 }

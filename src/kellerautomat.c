@@ -2,7 +2,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <ctype.h>
-#include "stackparser.c"
+#include "stackparser.h"
 
 #define STATE_ZERO 0
 #define STATE_ONE 1
@@ -63,6 +63,7 @@ int stateTwo(Stack *stack, char symbol) {
 int kellerautomat(char stepMode, char *word) {
     Stack stack;
     initialize(&stack);
+    pushparse(&stack, $);
 
     int currentState = STATE_ZERO;
 

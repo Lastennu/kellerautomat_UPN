@@ -1,13 +1,12 @@
 #include "stack.h"
 
-
-
 void initialize(Stack *stack) {
+    stack->arr[0] = 0;
     stack->top = TOP;
 }
 
 int isEmpty(Stack *stack) {
-    return stack->top == TOP;
+    return stack->arr[0] == 0;
 }
 
 int isFull(Stack *stack) {
@@ -20,9 +19,9 @@ void push(Stack *stack, int value) {
 
 int pop(Stack *stack) {
     if (isEmpty(stack)) {
-        return -1; // stack underflow
+        return -1;
     }
-    int symbol = stack->arr[0] / BASE;
-    stack->arr[0] = stack->arr[0] % BASE;
+    int symbol = stack->arr[0] % BASE;
+    stack->arr[0] = stack->arr[0] / BASE;
     return symbol;
 }

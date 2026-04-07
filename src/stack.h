@@ -3,7 +3,7 @@
 
 #define MAX_SIZE 100
 
-#define BASE 12
+#define BASE 13
 #define NUMBER_SPACER 11
 #define TOP 12
 
