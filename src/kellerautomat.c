@@ -2,7 +2,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <ctype.h>
-#include "stack.h"
+#include "stackparser.c"
 
 #define STATE_ZERO 0
 #define STATE_ONE 1
@@ -15,9 +15,9 @@
 int tempNumber;
 
 int stateZero(Stack *stack, char symbol) {
-    if (pop(stack) == $) {
+    if (popparse(stack) == $) {
         if (symbol >= '0' && symbol <= '9') {
-            push(stack, $);
+            pushparse(stack, $);
             tempNumber = symbol - '0';
             return STATE_ONE;
         }
@@ -26,10 +26,10 @@ int stateZero(Stack *stack, char symbol) {
 }
 
 int stateOne(Stack *stack, char symbol) {
-    if (pop(stack) == $) {
+    if (popparse(stack) == $) {
         if (symbol >= '0' && symbol <= '9') {
-            push(stack, $);
-            push(stack, tempNumber);
+            pushparse(stack, $);
+            pushparse(stack, tempNumber);
             tempNumber = symbol - '0';
             return STATE_TWO;
         }
@@ -38,9 +38,9 @@ int stateOne(Stack *stack, char symbol) {
 }
 
 int stateTwo(Stack *stack, char symbol) {
-    int top = pop(stack);
+    int top = popparse(stack);
     if (top == $) {
-        push(stack, $);
+        pushparse(stack, $);
         return STATE_ONE;
     }
     if (symbol == '+') {
@@ -52,8 +52,8 @@ int stateTwo(Stack *stack, char symbol) {
         return STATE_TWO;
     }
     if (symbol >= '0' && symbol <= '9') {
-        push(stack, top);
-        push(stack, tempNumber);
+        pushparse(stack, top);
+        pushparse(stack, tempNumber);
         tempNumber = symbol - '0';
         return STATE_TWO;
     }

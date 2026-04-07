@@ -3,7 +3,11 @@
 
 #define MAX_SIZE 100
 
-#define $ -1
+#define BASE 12
+#define NUMBER_SPACER 11
+#define TOP 12
+
+#define $ 12
 
 typedef struct {
     int arr[MAX_SIZE];

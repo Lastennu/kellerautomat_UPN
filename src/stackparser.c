@@ -1,4 +1,4 @@
-#include "intstack.c"
+#include "stack.h"
 
 void pushparse(Stack *stack, int value) {
     push(stack, NUMBER_SPACER);
@@ -18,4 +18,5 @@ int popparse(Stack *stack) {
     while(poppedelement = pop(stack) != NUMBER_SPACER) {
         result += poppedelement *= BASE;
     }
+    return result;
 }
