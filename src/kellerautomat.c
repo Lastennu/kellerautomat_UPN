@@ -115,8 +115,8 @@ int main() {
         stepMode = 0;
     }
 
-    char word[MAX_SIZE];
-    printf("Wort (maximale Länge: %d): ", MAX_SIZE);
+    char word[100];
+    printf("Wort (maximale Länge: %d): ", 100);
     scanf("%99s", word);
     return kellerautomat(stepMode, word);
 }
